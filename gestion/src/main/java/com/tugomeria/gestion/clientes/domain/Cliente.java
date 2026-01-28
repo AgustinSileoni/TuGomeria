@@ -35,4 +35,6 @@ public class Cliente {
         this.razonSocial = razonSocial;
         this.telefono = telefono;
     }
+
+
 }

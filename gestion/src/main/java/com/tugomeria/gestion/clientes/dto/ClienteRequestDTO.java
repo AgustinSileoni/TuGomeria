@@ -1,11 +1,13 @@
 package com.tugomeria.gestion.clientes.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 
 @Getter
 @Setter
-public class ClienteResponseDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ClienteRequestDTO {
 
     private String razonSocial;
     private String telefono;
@@ -13,7 +15,6 @@ public class ClienteResponseDTO {
     private String email;
     private String direccion;
     private String observaciones;
-    private Boolean activo;
-
+    private boolean activo;
 
 }
