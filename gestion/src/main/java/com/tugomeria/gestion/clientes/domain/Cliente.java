@@ -16,7 +16,7 @@ public class Cliente {
     private Long id;
 
     @Column(nullable = false)
-    private String razonSocial;
+    private String razon_social;
 
     private String cuit;
 
@@ -32,7 +32,7 @@ public class Cliente {
     private boolean activo;
 
     public Cliente(String razonSocial, String telefono) {
-        this.razonSocial = razonSocial;
+        this.razon_social = razonSocial;
         this.telefono = telefono;
     }
 

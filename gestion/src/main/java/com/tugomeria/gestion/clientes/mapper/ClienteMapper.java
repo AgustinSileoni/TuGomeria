@@ -8,7 +8,7 @@ public class ClienteMapper {
 
         public static ClienteResponseDTO EntityToDTO(Cliente cliente){
                 ClienteResponseDTO clienteResponseDTO = new ClienteResponseDTO();
-                clienteResponseDTO.setRazonSocial(cliente.getRazonSocial());
+                clienteResponseDTO.setRazonSocial(cliente.getRazon_social());
                 clienteResponseDTO.setTelefono(cliente.getTelefono());
                 clienteResponseDTO.setCuit(cliente.getCuit());
                 clienteResponseDTO.setEmail(cliente.getEmail());
@@ -20,7 +20,7 @@ public class ClienteMapper {
 
         public static Cliente DTOtoEntity(ClienteRequestDTO clienteRequestDTO){
             Cliente cliente = new Cliente();
-            cliente.setRazonSocial(clienteRequestDTO.getRazonSocial());
+            cliente.setRazon_social(clienteRequestDTO.getRazonSocial());
             cliente.setTelefono(clienteRequestDTO.getTelefono());
             cliente.setCuit(clienteRequestDTO.getCuit());
             cliente.setEmail(clienteRequestDTO.getEmail());
