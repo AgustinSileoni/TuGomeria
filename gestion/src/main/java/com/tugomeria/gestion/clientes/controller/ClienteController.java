@@ -29,7 +29,6 @@ public class ClienteController {
 
     @PostMapping("/add")
     public ResponseEntity<ClienteResponseDTO> agregarCliente(@RequestBody ClienteRequestDTO clienteRequestDTO){
-        System.out.println(clienteRequestDTO.getEmail());
         ClienteResponseDTO clienteCreadoResponseDTO = clienteService.crearCliente(clienteRequestDTO);
         return ResponseEntity.ok().body(clienteCreadoResponseDTO);
 
