@@ -30,6 +30,6 @@ public class Servicio {
 
     private Boolean estado;
 
-    @OneToMany(mappedBy = "servicio")
+    @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServicioRealizado> serviciosRealizados;
 }
