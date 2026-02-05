@@ -3,12 +3,19 @@ package com.tugomeria.gestion.visitas.service;
 import com.tugomeria.gestion.servicios.domain.Servicio;
 import com.tugomeria.gestion.servicios.domain.ServicioRealizado;
 import com.tugomeria.gestion.servicios.repository.ServicioRealizadoRepository;
+import com.tugomeria.gestion.vehiculos.domain.Vehiculo;
+import com.tugomeria.gestion.vehiculos.repository.VehiculoRepository;
+import com.tugomeria.gestion.vehiculos.service.VehiculoService;
 import com.tugomeria.gestion.visitas.domain.Visita;
+import com.tugomeria.gestion.visitas.dto.VisitaResponseDTO;
+import com.tugomeria.gestion.visitas.mapper.VisitaMapper;
 import com.tugomeria.gestion.visitas.repository.VisitaRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,9 +24,22 @@ public class VisitaService {
 
     private VisitaRepository visitaRepository;
     private ServicioRealizadoRepository servicioRealizadoRepository;
+    private VehiculoRepository vehiculoRepository;
 
-    public Visita findById(Long id) {
-        return visitaRepository.findById(id).orElse(null);
+    public VisitaResponseDTO iniciarVisita(Long idVehiculo){
+        Vehiculo vehiculo = vehiculoRepository.findById(idVehiculo).orElse(null);
+        Visita visita = new Visita();
+        visita.setVehiculo(vehiculo);
+        visita.setFecha(new Date());
+        visita.setTotal(0);
+        visita.setVisita_abierta(true);
+        visita.setServiciosRealizados(new ArrayList<ServicioRealizado>());
+        visitaRepository.save(visita);
+        return VisitaMapper.EntityToDTO(visita);
+    }
+
+    public VisitaResponseDTO findById(Long id) {
+        return visitaRepository.findById(id).map(VisitaMapper::EntityToDTO).orElse(null);
     }
 
     public List<Visita> findAll() {

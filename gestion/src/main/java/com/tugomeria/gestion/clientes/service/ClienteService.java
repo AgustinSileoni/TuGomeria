@@ -22,6 +22,10 @@ public class ClienteService {
         return ClienteMapper.EntityToDTO(cliente);
     }
 
+    public Cliente obtenerClienteByID(Long id){
+        return clienteRepository.findById(id).orElse(null);
+    }
+    
     public void eliminarCliente(Cliente cliente){
         clienteRepository.delete(cliente);
     }
@@ -30,6 +34,7 @@ public class ClienteService {
         List<Cliente> clientes = clienteRepository.findAll();
         List<ClienteResponseDTO> clientesResponseDTO = clientes.stream().map(ClienteMapper::EntityToDTO).toList();
         return clientesResponseDTO;
+
     }
 
 

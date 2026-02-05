@@ -2,11 +2,10 @@ package com.tugomeria.gestion.visitas.controller;
 
 
 import com.tugomeria.gestion.visitas.domain.Visita;
+import com.tugomeria.gestion.visitas.dto.VisitaResponseDTO;
 import com.tugomeria.gestion.visitas.service.VisitaService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +21,14 @@ public class VisitaController {
         return visitaService.findAll();
     }
 
+    @GetMapping("/{idVisita}")
+    public VisitaResponseDTO findById(@PathVariable Long idVisita){
+        return visitaService.findById(idVisita);
+    }
+
+    @PutMapping("/{idVehiculo}")
+    public VisitaResponseDTO iniciarVisita(@PathVariable Long idVehiculo){
+        return visitaService.iniciarVisita(idVehiculo);
+    }
 
 }
