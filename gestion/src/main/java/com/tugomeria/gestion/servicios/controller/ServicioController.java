@@ -1,9 +1,7 @@
 package com.tugomeria.gestion.servicios.controller;
 
 
-import com.tugomeria.gestion.servicios.domain.CategoriaServicio;
 import com.tugomeria.gestion.servicios.domain.Servicio;
-import com.tugomeria.gestion.servicios.repository.ServicioRepository;
 import com.tugomeria.gestion.servicios.service.CategoriaServicioService;
 import com.tugomeria.gestion.servicios.service.ServicioService;
 import lombok.AllArgsConstructor;

@@ -31,4 +31,14 @@ public class VisitaController {
         return visitaService.iniciarVisita(idVehiculo);
     }
 
+    @PostMapping("/{idVisita}/cerrar")
+    public VisitaResponseDTO finalizarVisita(@PathVariable Long idVisita){
+        return visitaService.cerrarVisita(idVisita);
+    }
+
+    @PostMapping("/{idVisita}/{idServicioRealizado}")
+    public VisitaResponseDTO agregarServicioRealizado(@PathVariable Long idVisita, @PathVariable Long idServicioRealizado){
+        return visitaService.agregarServicioRealizado(idVisita,idServicioRealizado);
+    }
+
 }

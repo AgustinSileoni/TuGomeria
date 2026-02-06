@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ServicioRealizadoResponseDTO {
+public class ServicioRealizadoRequestDTO {
 
-    private ServicioResponseDTO servicioResponseDTO;
+    private Long  servicio_id;
     private Integer cantidad;
     private Float precio_aplicado;
 

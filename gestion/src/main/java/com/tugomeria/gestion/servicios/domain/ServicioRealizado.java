@@ -34,4 +34,8 @@ public class ServicioRealizado {
 
     private Float precio_total;
 
+    public void calcularTotal() {
+        this.precio_total = precio_aplicado * cantidad;
+    }
+
 }
