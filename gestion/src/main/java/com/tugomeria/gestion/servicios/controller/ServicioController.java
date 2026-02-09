@@ -1,7 +1,7 @@
 package com.tugomeria.gestion.servicios.controller;
 
 
-import com.tugomeria.gestion.servicios.domain.Servicio;
+import com.tugomeria.gestion.servicios.dto.ServicioResponseDTO;
 import com.tugomeria.gestion.servicios.service.CategoriaServicioService;
 import com.tugomeria.gestion.servicios.service.ServicioService;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class ServicioController {
     private final ServicioService servicioService;
 
     @GetMapping("/findAll")
-    public List<Servicio> listarServicios() {
+    public List<ServicioResponseDTO> listarServicios() {
         return servicioService.listarServicios();
     }
 

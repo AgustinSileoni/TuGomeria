@@ -1,6 +1,7 @@
 package com.tugomeria.gestion.visitas.controller;
 
 
+import com.tugomeria.gestion.servicios.dto.ServicioRealizadoResponseDTO;
 import com.tugomeria.gestion.visitas.domain.Visita;
 import com.tugomeria.gestion.visitas.dto.VisitaResponseDTO;
 import com.tugomeria.gestion.visitas.service.VisitaService;
@@ -40,5 +41,11 @@ public class VisitaController {
     public VisitaResponseDTO agregarServicioRealizado(@PathVariable Long idVisita, @PathVariable Long idServicioRealizado){
         return visitaService.agregarServicioRealizado(idVisita,idServicioRealizado);
     }
+
+    @GetMapping("/serviciosRealizados/{idVisita}")
+    public List<ServicioRealizadoResponseDTO> obtenerServiciosRealizadosPorVisita(@PathVariable Long idVisita){
+        return visitaService.obtenerServiciosRealizadosPorVisita(idVisita);
+    }
+
 
 }

@@ -1,6 +1,9 @@
 package com.tugomeria.gestion.vehiculos.service;
 
 import com.tugomeria.gestion.clientes.domain.Cliente;
+import com.tugomeria.gestion.clientes.dto.ClienteResponseDTO;
+import com.tugomeria.gestion.clientes.mapper.ClienteMapper;
+import com.tugomeria.gestion.clientes.repository.ClienteRepository;
 import com.tugomeria.gestion.clientes.service.ClienteService;
 import com.tugomeria.gestion.vehiculos.domain.Vehiculo;
 import com.tugomeria.gestion.vehiculos.dto.VehiculoRequestDTO;
@@ -9,7 +12,6 @@ import com.tugomeria.gestion.vehiculos.mapper.VehiculoMapper;
 import com.tugomeria.gestion.vehiculos.repository.VehiculoRepository;
 import com.tugomeria.gestion.visitas.dto.VisitaResponseDTO;
 import com.tugomeria.gestion.visitas.mapper.VisitaMapper;
-import com.tugomeria.gestion.visitas.repository.VisitaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +22,14 @@ import java.util.List;
 public class VehiculoService {
 
     private final VehiculoRepository vehiculoRepository;
-    private final ClienteService clienteService;
+    private final ClienteRepository clienteRepository;
 
     public VehiculoResponseDTO agregarVehiculo(VehiculoRequestDTO vehiculoRequestDTO){
         Vehiculo nuevo_vehiculo = VehiculoMapper.DTOToEntity(vehiculoRequestDTO);
 
         //Busco el cliente correspondiente al id y se lo agrego
-        Cliente cliente = clienteService.obtenerClienteByID(vehiculoRequestDTO.getId_cliente());
+        Long cliente_id = vehiculoRequestDTO.getId_cliente();
+        Cliente cliente = clienteRepository.findById(cliente_id).orElseThrow();
         nuevo_vehiculo.setCliente(cliente);
         Vehiculo vehiculoAgregado = vehiculoRepository.save(nuevo_vehiculo);
         return VehiculoMapper.EntityToDTO(vehiculoAgregado);
@@ -46,6 +49,13 @@ public class VehiculoService {
         return visitasRealizadas;
     }
 
+    public ClienteResponseDTO obtenerDuenio(Long id){
+        Vehiculo vehiculo = vehiculoRepository.findById(id).orElse(null);
+        return ClienteMapper.EntityToDTO( vehiculo.getCliente());
+    }
 
 
+    public List<VehiculoResponseDTO> findByIdCliente(Long idCliente) {
+        return vehiculoRepository.findallByClienteId(idCliente).stream().map(VehiculoMapper::EntityToDTO).toList();
+    }
 }

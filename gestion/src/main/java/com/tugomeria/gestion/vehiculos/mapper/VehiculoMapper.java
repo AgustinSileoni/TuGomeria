@@ -1,5 +1,6 @@
 package com.tugomeria.gestion.vehiculos.mapper;
 
+import com.tugomeria.gestion.clientes.mapper.ClienteMapper;
 import com.tugomeria.gestion.clientes.service.ClienteService;
 import com.tugomeria.gestion.vehiculos.domain.Vehiculo;
 import com.tugomeria.gestion.vehiculos.dto.VehiculoRequestDTO;
@@ -18,6 +19,7 @@ public class VehiculoMapper {
         vehiculoResponseDTO.setPatente(vehiculo.getPatente());
         vehiculoResponseDTO.setObservaciones(vehiculo.getObservaciones());
         vehiculoResponseDTO.setEstado(true);
+        vehiculoResponseDTO.setCliente(ClienteMapper.EntityToDTO(vehiculo.getCliente()));
         return vehiculoResponseDTO;
     }
 

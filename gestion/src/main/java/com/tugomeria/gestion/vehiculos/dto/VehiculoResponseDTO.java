@@ -1,5 +1,6 @@
 package com.tugomeria.gestion.vehiculos.dto;
 
+import com.tugomeria.gestion.clientes.dto.ClienteResponseDTO;
 import com.tugomeria.gestion.visitas.domain.Visita;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +11,12 @@ import java.util.List;
 @Setter
 public class VehiculoResponseDTO {
 
+    private Long id;
     private String patente;
     private String marca;
     private String modelo;
     private String observaciones;
     private boolean estado;
+    private ClienteResponseDTO cliente;
 
 }

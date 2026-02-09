@@ -2,6 +2,7 @@ package com.tugomeria.gestion.visitas.service;
 
 import com.tugomeria.gestion.servicios.domain.ServicioRealizado;
 import com.tugomeria.gestion.servicios.dto.ServicioRealizadoResponseDTO;
+import com.tugomeria.gestion.servicios.mapper.ServicioRealizadoMapper;
 import com.tugomeria.gestion.servicios.repository.ServicioRealizadoRepository;
 import com.tugomeria.gestion.vehiculos.domain.Vehiculo;
 import com.tugomeria.gestion.vehiculos.repository.VehiculoRepository;
@@ -24,6 +25,15 @@ public class VisitaService {
     private ServicioRealizadoRepository servicioRealizadoRepository;
     private VehiculoRepository vehiculoRepository;
 
+    private float calcularTotal(Visita visita){
+        List<ServicioRealizadoResponseDTO> serviciosRealizados = visita.getServiciosRealizados();
+        float total = (float) serviciosRealizados.stream()
+                .mapToDouble(
+                        p -> p.getPrecio_aplicado() * p.getCantidad())
+                .sum();
+        return total;
+    }
+
     public VisitaResponseDTO iniciarVisita(Long idVehiculo){
         Vehiculo vehiculo = vehiculoRepository.findById(idVehiculo).orElse(null);
         Visita visita = new Visita();
@@ -42,10 +52,6 @@ public class VisitaService {
 
     public List<Visita> findAll() {
         return visitaRepository.findAll();
-    }
-
-    public List<Visita> obtenerVisitasPorVehiculo(Long idVehiculo){
-        return visitaRepository.findByVehiculoIdVehiculo(idVehiculo);
     }
 
     public VisitaResponseDTO agregarServicioRealizado(Long visita_id, Long servicio_realizado_id) {
@@ -74,13 +80,11 @@ public class VisitaService {
         return VisitaMapper.EntityToDTO(visita);
     }
 
-    private float calcularTotal(Visita visita){
-        List<ServicioRealizadoResponseDTO> serviciosRealizados = visita.getServiciosRealizados();
-        float total = (float) serviciosRealizados.stream()
-                .mapToDouble(
-                p -> p.getPrecio_aplicado() * p.getCantidad())
-                .sum();
-        return total;
+
+    public List<ServicioRealizadoResponseDTO> obtenerServiciosRealizadosPorVisita(Long visita_id){
+        Visita visita = visitaRepository.findById(visita_id).orElse(null);
+        return visita.getServiciosRealizados();
     }
+
 
 }

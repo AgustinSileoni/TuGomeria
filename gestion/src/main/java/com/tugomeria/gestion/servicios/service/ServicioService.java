@@ -1,6 +1,8 @@
 package com.tugomeria.gestion.servicios.service;
 
 import com.tugomeria.gestion.servicios.domain.Servicio;
+import com.tugomeria.gestion.servicios.dto.ServicioResponseDTO;
+import com.tugomeria.gestion.servicios.mapper.ServicioMapper;
 import com.tugomeria.gestion.servicios.repository.ServicioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,8 @@ public class ServicioService {
 
     private final ServicioRepository servicioRepository;
 
-    public List<Servicio> listarServicios() {
-        return servicioRepository.findAll();
+    public List<ServicioResponseDTO> listarServicios() {
+        return servicioRepository.findAll().stream().map(ServicioMapper::entityToDTO).toList();
     }
 
     public Servicio getServicioById(Long id) {
