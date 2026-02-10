@@ -24,12 +24,17 @@ public class ClienteController {
         return ResponseEntity.ok().body(clientes);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteResponseDTO> obtenerClientePorID(@PathVariable Long id){
+        return ResponseEntity.ok().body(clienteService.obtenerClienteByID(id));
+    }
+
     @PostMapping("/add")
     public ResponseEntity<ClienteResponseDTO> agregarCliente(@RequestBody ClienteRequestDTO clienteRequestDTO){
         ClienteResponseDTO clienteCreadoResponseDTO = clienteService.crearCliente(clienteRequestDTO);
         return ResponseEntity.ok().body(clienteCreadoResponseDTO);
-
     }
+
 
 
 }
