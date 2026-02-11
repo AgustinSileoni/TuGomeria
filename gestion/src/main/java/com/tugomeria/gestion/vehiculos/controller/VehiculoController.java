@@ -21,6 +21,7 @@ public class VehiculoController {
 
     @PostMapping("/add")
     public ResponseEntity<VehiculoResponseDTO> addVehiculo(@RequestBody VehiculoRequestDTO vehiculoRequestDTO){
+
         VehiculoResponseDTO vehiculoCreadoResponseDTO = vehiculoService.agregarVehiculo(vehiculoRequestDTO);
         return ResponseEntity.ok().body(vehiculoCreadoResponseDTO);
     }

@@ -8,6 +8,7 @@ import com.tugomeria.gestion.clientes.service.ClienteService;
 import com.tugomeria.gestion.vehiculos.domain.Vehiculo;
 import com.tugomeria.gestion.vehiculos.dto.VehiculoRequestDTO;
 import com.tugomeria.gestion.vehiculos.dto.VehiculoResponseDTO;
+import com.tugomeria.gestion.vehiculos.exceptions.PatenteExistenteException;
 import com.tugomeria.gestion.vehiculos.mapper.VehiculoMapper;
 import com.tugomeria.gestion.vehiculos.repository.VehiculoRepository;
 import com.tugomeria.gestion.visitas.dto.VisitaResponseDTO;
@@ -16,6 +17,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,13 +28,20 @@ public class VehiculoService {
 
     public VehiculoResponseDTO agregarVehiculo(VehiculoRequestDTO vehiculoRequestDTO){
         Vehiculo nuevo_vehiculo = VehiculoMapper.DTOToEntity(vehiculoRequestDTO);
-
+        corroborarPatenteDuplicada(vehiculoRequestDTO);
         //Busco el cliente correspondiente al id y se lo agrego
         Long cliente_id = vehiculoRequestDTO.getId_cliente();
         Cliente cliente = clienteRepository.findById(cliente_id).orElseThrow();
         nuevo_vehiculo.setCliente(cliente);
         Vehiculo vehiculoAgregado = vehiculoRepository.save(nuevo_vehiculo);
         return VehiculoMapper.EntityToDTO(vehiculoAgregado);
+    }
+
+    private void corroborarPatenteDuplicada(VehiculoRequestDTO vehiculoRequestDTO) throws PatenteExistenteException {
+        Optional<Vehiculo> vehiculo = vehiculoRepository.findVehiculoByPatente(vehiculoRequestDTO.getPatente());
+        if(vehiculo.isPresent()){
+            throw new PatenteExistenteException("Patente existente");
+        }
     }
 
     public List<VehiculoResponseDTO> findAll(){
