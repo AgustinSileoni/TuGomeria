@@ -23,6 +23,17 @@ public class VehiculoMapper {
         return vehiculoResponseDTO;
     }
 
+    public static VehiculoRequestDTO EntityToDTORequest(Vehiculo vehiculo){
+        VehiculoRequestDTO vehiculoRequestDTO = new VehiculoRequestDTO();
+        vehiculoRequestDTO.setMarca(vehiculo.getMarca());
+        vehiculoRequestDTO.setModelo(vehiculo.getModelo());
+        vehiculoRequestDTO.setPatente(vehiculo.getPatente());
+        vehiculoRequestDTO.setObservaciones(vehiculo.getObservaciones());
+        vehiculoRequestDTO.setEstado(vehiculo.getEstado());
+        vehiculoRequestDTO.setIdCliente(vehiculo.getCliente().getCliente_id());
+        return vehiculoRequestDTO;
+    }
+
     public static Vehiculo DTOToEntity(VehiculoRequestDTO vehiculoRequestDTO){
         Vehiculo vehiculo = new Vehiculo();
         vehiculo.setMarca(vehiculoRequestDTO.getMarca());

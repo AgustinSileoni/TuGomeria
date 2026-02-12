@@ -21,7 +21,6 @@ public class VehiculoController {
 
     @PostMapping("/add")
     public ResponseEntity<VehiculoResponseDTO> addVehiculo(@RequestBody VehiculoRequestDTO vehiculoRequestDTO){
-
         VehiculoResponseDTO vehiculoCreadoResponseDTO = vehiculoService.agregarVehiculo(vehiculoRequestDTO);
         return ResponseEntity.ok().body(vehiculoCreadoResponseDTO);
     }
@@ -36,6 +35,11 @@ public class VehiculoController {
     public ResponseEntity<ClienteResponseDTO> obtenerduenioVehiculo(@PathVariable Long idVehiculo){
         ClienteResponseDTO clienteResponseDTO = vehiculoService.obtenerDuenio(idVehiculo);
         return ResponseEntity.ok().body(clienteResponseDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VehiculoResponseDTO> modificarVehiculo(@PathVariable Long id, @RequestBody VehiculoRequestDTO vehiculoRequestDTO){
+        return ResponseEntity.ok().body(vehiculoService.editarVehiculo(id,vehiculoRequestDTO));
     }
 
     @GetMapping("/{idVehiculo}/visitas")

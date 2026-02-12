@@ -2,6 +2,7 @@ package com.tugomeria.gestion.exceptions;
 
 import com.tugomeria.gestion.clientes.exceptions.ClienteNoEncontradoException;
 import com.tugomeria.gestion.vehiculos.exceptions.PatenteExistenteException;
+import com.tugomeria.gestion.vehiculos.exceptions.VehiculoNoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,5 +27,12 @@ public class GlobalExceptionHandler {
         Map<String,String> errores = new HashMap<>();
         errores.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errores);
+    }
+
+    @ExceptionHandler(VehiculoNoEncontradoException.class)
+    public ResponseEntity<Map<String,String>> habdlerVehiculoNoEncontradoException(VehiculoNoEncontradoException ex){
+        Map<String,String> errores = new HashMap<>();
+        errores.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errores);
     }
 }

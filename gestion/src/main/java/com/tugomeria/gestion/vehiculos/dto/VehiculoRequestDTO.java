@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class VehiculoRequestDTO {
 
-    private Long id_cliente;
+    private Long idCliente;
     private String marca;
     private String modelo;
     private String color;
