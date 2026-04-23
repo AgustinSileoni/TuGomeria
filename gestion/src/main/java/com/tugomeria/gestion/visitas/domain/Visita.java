@@ -4,6 +4,7 @@ import com.tugomeria.gestion.servicios.domain.ServicioRealizado;
 import com.tugomeria.gestion.servicios.dto.ServicioRealizadoResponseDTO;
 import com.tugomeria.gestion.servicios.mapper.ServicioRealizadoMapper;
 import com.tugomeria.gestion.vehiculos.domain.Vehiculo;
+import com.tugomeria.gestion.visitas.exceptions.VisitaCerradaException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,9 +37,15 @@ public class Visita {
     @OneToMany(mappedBy = "visita", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<ServicioRealizado> serviciosRealizados;
 
-    public void agregarServicioRealizado(ServicioRealizado servicio_realizado) {
-        this.serviciosRealizados.add(servicio_realizado);
-        servicio_realizado.setVisita(this);
+    public void agregarServicioRealizado(ServicioRealizado servicio_realizado) throws VisitaCerradaException {
+        if (visita_abierta) {
+            this.serviciosRealizados.add(servicio_realizado);
+            servicio_realizado.setVisita(this);
+        }
+        else{
+            throw new VisitaCerradaException("Esta visita ya fue cerrada");
+        }
+
     }
 
     public List<ServicioRealizadoResponseDTO> getServiciosRealizados() {
@@ -48,8 +55,14 @@ public class Visita {
     }
 
     public void removerServicioRealizado(ServicioRealizado servicio_realizado) {
-        this.serviciosRealizados.remove(servicio_realizado);
-        servicio_realizado.setVisita(null);
+        if (visita_abierta) {
+            this.serviciosRealizados.remove(servicio_realizado);
+            servicio_realizado.setVisita(null);
+        }
+        else{
+            throw new VisitaCerradaException("Esta visita ya fue cerrada");
+        }
+
     }
 
 }

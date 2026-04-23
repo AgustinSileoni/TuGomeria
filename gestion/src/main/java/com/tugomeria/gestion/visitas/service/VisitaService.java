@@ -63,7 +63,7 @@ public class VisitaService {
         return VisitaMapper.EntityToDTO(visita);
     }
 
-    public Visita removerServicio(Long visita_id, Long servicio_realizado_id) {
+    public Visita removerServicioRealizado(Long visita_id, Long servicio_realizado_id) {
         Visita visita = visitaRepository.findById(visita_id).orElse(null);
         ServicioRealizado servicioRealizado = servicioRealizadoRepository.findById(servicio_realizado_id).orElse(null);
         visita.removerServicioRealizado(servicioRealizado);

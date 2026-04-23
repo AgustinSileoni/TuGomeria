@@ -46,6 +46,5 @@ public class VisitaController {
     public List<ServicioRealizadoResponseDTO> obtenerServiciosRealizadosPorVisita(@PathVariable Long idVisita){
         return visitaService.obtenerServiciosRealizadosPorVisita(idVisita);
     }
-
-
+    
 }
