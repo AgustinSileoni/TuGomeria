@@ -2,7 +2,7 @@ package com.tugomeria.gestion.clientes.controller;
 
 import com.tugomeria.gestion.clientes.dto.ClienteRequestDTO;
 import com.tugomeria.gestion.clientes.dto.ClienteResponseDTO;
-import com.tugomeria.gestion.clientes.service.ClienteService;
+import com.tugomeria.gestion.clientes.service.ClienteServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ClienteController {
 
-    private final ClienteService clienteService;
+    private final ClienteServiceImpl clienteService;
 
 
     @GetMapping("/findAll")
